@@ -1,1 +1,7 @@
-Hola mundo
+Hola 
+
+
+npm install express
+npm install morgan
+npm install nodemon
+npm run dev
