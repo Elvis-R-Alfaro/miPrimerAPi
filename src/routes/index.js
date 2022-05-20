@@ -1,14 +1,6 @@
 const { Router } = require('express');
+const controladorInicio = require('../controllers/controladorInicio');
 const rutas = Router();
-rutas.get('/', (req, res) => {
-    const msj = {
-        clase: "movil II",
-        docente: "Ing. Carlos Flores"
-    };
-    res.json(msj);
-});
-rutas.get('/otra', (req, res) => {
-    
-    res.send("Otra ruta");
-});
+rutas.get('/', controladorInicio.Inicio);
+rutas.get('/otra', controladorInicio.Otra);
 module.exports = rutas;
