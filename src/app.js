@@ -5,9 +5,7 @@ app.set('port',3001);
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
-app.get('/', (req, res) => {
-    res.send("Hola mundo");
-});
+app.use('/api/',require('./routes'));
 app.listen(app.get('port'), () => {
     console.log("Servidor iniiado en el puerto " + app.get('port'));
 })
