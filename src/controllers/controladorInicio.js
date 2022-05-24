@@ -15,13 +15,35 @@ exports.Inicio = (req, res) => {
 };
 exports.ejemploPost = (req, res) => {
     //console.log(req.body);
-    const { usuario, contraseña } = req.body;
-    console.log(usuario);
-    console.log(contraseña);
+    //const { usuario, contraseña } = req.body;
+    const usuario2 = req.body.usuario;
+    const contraseña2 = req.body.contraseña;
+    console.log(usuario2);
+    console.log(contraseña2);
     const msj = { 
         mensaje: 'Ninguno'
     };
-    if(!usuario || !contraseña) {
+    if(!usuario2 || !contraseña2) {
+        msj.mensaje = 'Debe de enviar los datos completos';
+    }
+    else{
+        msj.mensaje = 'Peticion procesada correctamente';
+    }
+    res.json(msj);
+};
+exports.ejemploPut = (req, res) => {
+    console.log(req);
+    const { id } = req.query.id;
+    console.log(id);
+    //const { usuario, contraseña } = req.body;
+    const usuario2 = req.body.usuario;
+    const contraseña2 = req.body.contraseña;
+    console.log(usuario2);
+    console.log(contraseña2);
+    const msj = { 
+        mensaje: 'Ninguno'
+    };
+    if(!usuario2 || !contraseña2) {
         msj.mensaje = 'Debe de enviar los datos completos';
     }
     else{
