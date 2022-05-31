@@ -6,6 +6,7 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
 app.use('/api/',require('./routes'));
+app.use('/api/cargos',require('./routes/rutasCargos'));
 app.listen(app.get('port'), () => {
     console.log("Servidor iniiado en el puerto " + app.get('port'));
 })
