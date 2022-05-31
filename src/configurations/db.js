@@ -1,8 +1,8 @@
 const sequelize = require('sequelize');
 const db = new sequelize(
-    'base de datos',
-    'usuario',
-    'contraseña',
+    'sigres2',
+    'root',
+    '',
     {
         host: 'localhost',
         dialect: 'mysql',
