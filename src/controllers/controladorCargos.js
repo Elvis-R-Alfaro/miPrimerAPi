@@ -2,9 +2,9 @@ const { validationResult } = require('express-validator');
 const modeloCargo = require('../models/modeloCargo');
 exports.Listar = async (req, res) => { //async es para que espere a que se ejecute la funcion y le devuelta un resultado
     try {
-        const lista = await modeloCargo.findAll();
+        const lista = await modeloCargo.findOne();
         console.log(lista);
-        res.json(lista);
+        res.json(modeloCargo);
     }
     catch(error){
         console.error(error);
@@ -39,44 +39,79 @@ exports.Guardar = async (req, res) => {
     res.json(msj);    
 };
     
-exports.ejemploPut = (req, res) => {
+exports.Editar = async (req, res) => {
     const validaciones = validationResult(req);
     console.log(validaciones.errors);
-    //console.log(req);
-    const { id } = req.query.id;
-    console.log(id);
-    //const { usuario, contraseña } = req.body;
-    const usuario2 = req.body.usuario;
-    const contraseña2 = req.body.contraseña;
-    console.log(usuario2);
-    console.log(contraseña2);
     const msj = { 
-        mensaje: 'Ninguno'
+        mensaje: ''
     };
-    if(!usuario2 || !contraseña2) {
-        msj.mensaje = 'Debe de enviar los datos completos';
+    if(validaciones.errors.length > 0){
+        validaciones.errors.forEach(element => {
+            msj.mensaje += element.msg + '. ';
+        });
     }
     else{
-        msj.mensaje = 'Peticion procesada correctamente';
+        const { id } = req.query;
+        const { nombre, descripcion } = req.body;
+        try {
+            var buscarCargo = await modeloCargo.findOne({
+                where: {
+                    id: id
+                }
+            });
+            if(!buscarCargo){
+                msj.mensaje='El id del registro no existe';
+            }
+            else{
+                buscarCargo.nombre = nombre,
+                buscarCargo.descripcion = descripcion
+                await buscarCargo.save();
+                msj.mensaje='Registro editado';
+            }            
+        } 
+        catch (error) {
+            msj.mensaje='Error al editar los datos';
+        }
+            
     }
     res.json(msj);
 };
 
-exports.ejemploDelete = (req, res) => {
+exports.Eliminar = async (req, res) => {
     const validaciones = validationResult(req);
     console.log(validaciones.errors);
-    //console.log(req);
-    const { id } = req.query.id;
-    console.log(id);
-    //const { usuario, contraseña } = req.body;
     const msj = { 
-        mensaje: 'Ninguno'
+        mensaje: ''
     };
-    if(!id) {
-        msj.mensaje = 'Debe de enviar los datos completos';
+    if(validaciones.errors.length > 0){
+        validaciones.errors.forEach(element => {
+            msj.mensaje += element.msg + '. ';
+        });
     }
     else{
-        msj.mensaje = 'Peticion procesada correctamente';
+        const { id } = req.query;
+        try {
+            var buscarCargo = await modeloCargo.findOne({
+                where: {
+                    id: id
+                }
+            });
+            if(!buscarCargo){
+                msj.mensaje='El id del registro no existe';
+            }
+            else{
+                await buscarCargo.destroy({
+                    where: {
+                        id: id
+                    }
+                });
+                msj.mensaje='Registro eliminado';
+            }            
+        } 
+        catch (error) {
+            msj.mensaje='Error al eliminar los datos';
+        }
+            
     }
     res.json(msj);
 };

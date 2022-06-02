@@ -12,25 +12,22 @@ body('nombre')
 controladorCargos.Guardar);
 
 
-/*
-rutas.put('/',
-query('id')
-.notEmpty().withMessage('No se aceptan valores vacios para el id del usuario')
-.isInt().withMessage('El id del usuario debe ser entero'),
-body('usuario')
-.notEmpty().withMessage('No se aceptan valores vacios para el usuario')
-.isLength({min: 3}).withMessage('La cantidad minima de caracteres son 3, para el nombre del usuario'),
-body('contraseña')
-.notEmpty().withMessage('No se aceptan valores vacios para la contraseña')
-.isLength({min: 6}).withMessage('La cantidad minima de caracteres son 6, para el la contraseña'),
 
-controladorInicio.ejemploPut);
-
-rutas.delete('/',
+rutas.put('/editar',
 query('id')
-.notEmpty().withMessage('No se aceptan valores vacios para el id del usuario')
-.isInt().withMessage('El id del usuario debe ser entero'),
-controladorInicio.ejemploDelete);
-*/
+.notEmpty().withMessage('No se aceptan valores vacios para el id del cargo')
+.isInt().withMessage('El id del cargo debe ser entero'),
+body('nombre')
+.notEmpty().withMessage('No se aceptan valores vacios para el nombre del cargo')
+.isLength({min: 3}).withMessage('La cantidad minima de caracteres son 3, para el nombre del cargo'),
+controladorCargos.Editar);
+
+
+rutas.delete('/eliminar',
+query('id')
+.notEmpty().withMessage('No se aceptan valores vacios para el id del cargo')
+.isInt().withMessage('El id del cargo debe ser entero'),
+controladorCargos.Eliminar);
+
 
 module.exports = rutas;
