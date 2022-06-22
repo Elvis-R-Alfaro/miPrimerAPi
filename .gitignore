@@ -6,4 +6,5 @@
 /nbproject/
 /nbproject/private/
 /node_modules/
+src/configurations/db.json
 .env
